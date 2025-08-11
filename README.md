@@ -2,7 +2,8 @@
 A simple blog platform built with Next.js and Tailwind CSS, connected to MongoDB for storing and retrieving blog posts.
 Includes About and Contact pages.
 
-🚀 Features
+
+# 🚀 Features
 📝 Create, read, and display blog posts
 
 📄 About page to describe the blog or author
@@ -13,7 +14,8 @@ Includes About and Contact pages.
 
 ⚡ Fast rendering with Next.js
 
-🛠 Tech Stack
+
+# 🛠 Tech Stack
 Frontend: Next.js, Tailwind CSS
 
 Backend: Next.js API Routes
