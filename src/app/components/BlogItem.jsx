@@ -13,7 +13,7 @@ const BlogItem = () => {
     title: "Sample Blog Post",
     description: "This is a sample description for the blog before API data loads.",
     category: "Technology",
-    image: "/default-blog.jpg",
+    image: "/1744433544169_1744369045448_travel.webp",
     date: new Date().toISOString()
   },
   {
