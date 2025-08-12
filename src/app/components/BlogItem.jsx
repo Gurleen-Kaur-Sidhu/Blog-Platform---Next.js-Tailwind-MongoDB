@@ -7,7 +7,25 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 const BlogItem = () => {
   const [menu, setmenu] = useState("All");
-  const [blogs, setBlogs] = useState([]);
+ const [blogs, setBlogs] = useState([
+  {
+    _id: "1",
+    title: "Sample Blog Post",
+    description: "This is a sample description for the blog before API data loads.",
+    category: "Technology",
+    image: "/default-blog.jpg",
+    date: new Date().toISOString()
+  },
+  {
+    _id: "2",
+    title: "Wellness Guide",
+    description: "Quick tips to improve your wellness and lifestyle.",
+    category: "Wellness",
+    image: "/default-blog2.jpg",
+    date: new Date().toISOString()
+  }
+]);
+
 
   const fetchBlogs = async () => {
     const response = await axios.get("http://localhost:3000/api/blog");
