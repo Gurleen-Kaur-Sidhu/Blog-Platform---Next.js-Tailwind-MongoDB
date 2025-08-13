@@ -1,4 +1,7 @@
 # Blog-Platform---Next.js-Tailwind-MongoDB
+
+**Live Demo:** [Click Here](https://blog-platform-next-js-tailwind-mong.vercel.app/)
+
 A simple blog platform built with Next.js and Tailwind CSS, connected to MongoDB for storing and retrieving blog posts.
 Includes About and Contact pages.
 
