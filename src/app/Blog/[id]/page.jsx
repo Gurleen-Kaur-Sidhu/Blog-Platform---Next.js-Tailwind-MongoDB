@@ -200,6 +200,7 @@
 // export default page;
 
 
+
 "use client";
 
 import { use, useState, useEffect } from "react";
@@ -212,7 +213,7 @@ const Page = ({ params }) => {
   const { id } = use(params); // ✅ unwrap Promise params
   const [data, setData] = useState(null);
   const [blogs, setBlogs] = useState([
-    {
+   {
       _id: "1",
       title: "Mindfulness in the Digital Age: Finding Calm in a Busy World",
       description:
@@ -264,7 +265,7 @@ const Page = ({ params }) => {
 
   const fetchBlogData = async () => {
     try {
-      const response = await axios.get(/api/blog, { params: { id } }); // ✅ relative URL
+      const response = await axios.get(`/api/blog`, { params: { id } }); // ✅ relative URL
 
       if (response.data && Object.keys(response.data).length > 0) {
         setData(response.data);
@@ -281,7 +282,7 @@ const Page = ({ params }) => {
 
   const fetchBlogs = async () => {
     try {
-      const response = await axios.get(/api/blog); // ✅ relative URL
+      const response = await axios.get(`/api/blog`); // ✅ relative URL
       if (Array.isArray(response.data.blogs)) {
         setBlogs(response.data.blogs);
       } else {
@@ -306,7 +307,7 @@ const Page = ({ params }) => {
       <article className="flex flex-col items-start justify-end lg:mx-10 mx-5 relative h-[55vh]">
         <div className="absolute top-0 left-0 bottom-0 right-0 h-full rounded-3xl z-0">
           <Image
-            src={data.image.startsWith("/") ? data.image : /${data.image}}
+            src={data.image.startsWith("/") ? data.image : `/${data.image}`}
             fill
             alt="image"
             className="w-full h-full object-cover object-center rounded-3xl -z-10"
@@ -354,11 +355,11 @@ const Page = ({ params }) => {
               .filter((b) => (menu === "All" ? true : b.category === menu))
               .slice(0, 5)
               .map((blog, index) => (
-                <Link href={/Blog/${blog._id}} key={index}>
+                <Link href={`/Blog/${blog._id}`} key={index}>
                   <div className="flex items-start gap-4 mb-4">
                     <div className="w-[104px] h-[84px] relative rounded-lg overflow-hidden">
                       <Image
-                        src={blog.image.startsWith("/") ? blog.image : /${blog.image}}
+                        src={blog.image.startsWith("/") ? blog.image : `/${blog.image}`}
                         alt={blog.title}
                         fill
                         style={{ objectFit: "cover" }}
@@ -386,4 +387,4 @@ const Page = ({ params }) => {
   );
 };
 
-export default Page; 
+export default Page;
