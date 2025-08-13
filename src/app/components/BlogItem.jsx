@@ -9,21 +9,22 @@ const BlogItem = () => {
   const [menu, setmenu] = useState("All");
   const [blogs, setBlogs] = useState([
     {
-      _id: "1",
-      title: "The Future of Technology: Trends to Watch in 2025",
-      description:
-        "Technology in 2025 is evolving faster than ever, shaping industries, economies, and our daily lives in ways that were once unimaginable. ",
-      category: "Technology",
-      image: "/tech1.jpg",
-      date: new Date().toISOString(),
-    },
-    {
-      _id: "2",
+     _id: "1",
       title: "Mindfulness in the Digital Age: Finding Calm in a Busy World",
       description:
         "In our fast-paced, always-connected world, finding moments of stillness has become more important than ever.",
       category: "Wellness",
       image: "/well1.webp",
+      date: new Date().toISOString(),
+    },
+    {
+      
+      _id: "2",
+      title: "The Future of Technology: Trends to Watch in 2025",
+      description:
+        "Technology in 2025 is evolving faster than ever, shaping industries, economies, and our daily lives in ways that were once unimaginable. ",
+      category: "Technology",
+      image: "/tech1.jpg",
       date: new Date().toISOString(),
     },
     {

@@ -6,11 +6,11 @@ import axios from "axios";
 const HomeCoverSection = () => {
   const [blogs, setBlogs] = useState([{
       _id: "1",
-      title: "The Future of Technology: Trends to Watch in 2025",
+      title: "Mindfulness in the Digital Age: Finding Calm in a Busy World",
       description:
-        "Technology in 2025 is evolving faster than ever, shaping industries, economies, and our daily lives in ways that were once unimaginable. ",
-      category: "Technology",
-      image: "/tech1.jpg",
+        "In our fast-paced, always-connected world, finding moments of stillness has become more important than ever.",
+      category: "Wellness",
+      image: "/well1.webp",
       date: new Date().toISOString(),
     }]);
   const fetchBlogs = async () => {
