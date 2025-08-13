@@ -200,6 +200,8 @@
 // export default page;
 
 
+
+
 "use client";
 
 import { use, useState, useEffect } from "react";
@@ -209,11 +211,11 @@ import Link from "next/link";
 import axios from "axios";
 
 const Page = ({ params }) => {
-  const { id } = use(params); // ✅ unwrap params
+  const { id } = use(params); // ✅ unwrap Promise params
   const [data, setData] = useState(null);
   const [blogs, setBlogs] = useState([
     {
-     _id: "1",
+      _id: "1",
       title: "Mindfulness in the Digital Age: Finding Calm in a Busy World",
       description:
         "In our fast-paced, always-connected world, finding moments of stillness has become more important than ever.",
@@ -222,11 +224,10 @@ const Page = ({ params }) => {
       date: new Date().toISOString(),
     },
     {
-      
       _id: "2",
       title: "The Future of Technology: Trends to Watch in 2025",
       description:
-        "Technology in 2025 is evolving faster than ever, shaping industries, economies, and our daily lives in ways that were once unimaginable. ",
+        "Technology in 2025 is evolving faster than ever, shaping industries, economies, and our daily lives in ways that were once unimaginable.",
       category: "Technology",
       image: "/tech1.jpg",
       date: new Date().toISOString(),
@@ -260,52 +261,28 @@ const Page = ({ params }) => {
       date: new Date().toISOString(),
     },
   ]);
-  const [menu, setmenu] = useState("All");
-
-  // Try fetching from API, fallback to static data if it fails
-  // const fetchBlogData = async () => {
-  //   try {
-  //     const response = await axios.get("http://localhost:3000/api/blog", {
-  //       params: { id },
-  //     });
-
-  //     if (response.data && Object.keys(response.data).length > 0) {
-  //       setData(response.data);
-  //     } else {
-  //       // Mongo returned nothing → fallback
-  //       const fallback = blog_data.find((b) => b._id === id);
-  //       setData(fallback || null);
-  //     }
-  //   } catch (error) {
-  //     console.error("Error fetching blog, using static data:", error);
-  //     const fallback = blog_data.find((b) => b._id === id);
-  //     setData(fallback || null);
-  //   }
-  // };
+  const [menu, setMenu] = useState("All");
 
   const fetchBlogData = async () => {
-  try {
-    const response = await axios.get(`http://localhost:3000/api/blog`, { params: { id } });
+    try {
+      const response = await axios.get(`/api/blog`, { params: { id } }); // ✅ relative URL
 
-    if (response.data && Object.keys(response.data).length > 0) {
-      setData(response.data);
-    } else {
-      // fallback to static state
-      const fallback = blogs.find((b) => String(b._id) === String(id));
+      if (response.data && Object.keys(response.data).length > 0) {
+        setData(response.data);
+      } else {
+        const fallback = blogs.find((b) => String(b._id) === String(id)); // ✅ string match
+        setData(fallback || null);
+      }
+    } catch (error) {
+      console.error("Error fetching blog, using static data:", error);
+      const fallback = blogs.find((b) => String(b._id) === String(id)); // ✅ string match
       setData(fallback || null);
     }
-  } catch (error) {
-    console.error("Error fetching blog, using static data:", error);
-    const fallback = blogs.find((b) => String(b._id) === String(id));
-    setData(fallback || null);
-  }
-};
+  };
 
-
-  // Load latest blogs (also with fallback)
   const fetchBlogs = async () => {
     try {
-      const response = await axios.get("http://localhost:3000/api/blog");
+      const response = await axios.get(`/api/blog`); // ✅ relative URL
       if (Array.isArray(response.data.blogs)) {
         setBlogs(response.data.blogs);
       } else {
@@ -330,11 +307,7 @@ const Page = ({ params }) => {
       <article className="flex flex-col items-start justify-end lg:mx-10 mx-5 relative h-[55vh]">
         <div className="absolute top-0 left-0 bottom-0 right-0 h-full rounded-3xl z-0">
           <Image
-            src={
-              data.image.startsWith("/")
-                ? data.image
-                : `/${data.image}`
-            }
+            src={data.image.startsWith("/") ? data.image : `/${data.image}`}
             fill
             alt="image"
             className="w-full h-full object-cover object-center rounded-3xl -z-10"
@@ -344,7 +317,9 @@ const Page = ({ params }) => {
               {data.category}
             </button>
             <h1 className="lg:text-4xl text-xl text-white mt-4">{data.title}</h1>
-            <p className="text-lg font-light text-white mt-2">{data.description}</p>
+            <p className="text-lg font-light text-white mt-2">
+              {data.description}
+            </p>
           </div>
         </div>
       </article>
@@ -369,7 +344,7 @@ const Page = ({ params }) => {
               <button
                 key={category}
                 className="bg-gray-200 text-black px-4 py-1 rounded-lg font-bold text-sm"
-                onClick={() => setmenu(category)}
+                onClick={() => setMenu(category)}
               >
                 {category}
               </button>
@@ -384,11 +359,7 @@ const Page = ({ params }) => {
                   <div className="flex items-start gap-4 mb-4">
                     <div className="w-[104px] h-[84px] relative rounded-lg overflow-hidden">
                       <Image
-                        src={
-                          blog.image.startsWith("/")
-                            ? blog.image
-                            : `/${blog.image}`
-                        }
+                        src={blog.image.startsWith("/") ? blog.image : `/${blog.image}`}
                         alt={blog.title}
                         fill
                         style={{ objectFit: "cover" }}
@@ -417,3 +388,4 @@ const Page = ({ params }) => {
 };
 
 export default Page;
+
