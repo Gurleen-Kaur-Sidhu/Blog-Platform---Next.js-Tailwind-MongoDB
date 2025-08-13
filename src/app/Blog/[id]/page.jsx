@@ -210,7 +210,7 @@ import Link from "next/link";
 import axios from "axios";
 
 const Page = ({ params }) => {
-  const { id } = params; // ✅ unwrap Promise params
+  const { id } = use(params); // ✅ unwrap Promise params
   const [data, setData] = useState(null);
   const [blogs, setBlogs] = useState([
    {
@@ -298,11 +298,10 @@ const Page = ({ params }) => {
     }
   };
 
- useEffect(() => {
-  if (!id) return; // wait until id is ready
-  fetchBlogData();
-  fetchBlogs();
-}, [id]);
+  useEffect(() => {
+    fetchBlogData();
+    fetchBlogs();
+  }, [id]);
 
   if (!data) return <p className="p-10">Blog not found.</p>;
 
