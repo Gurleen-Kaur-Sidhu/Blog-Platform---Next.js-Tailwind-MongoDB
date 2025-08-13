@@ -4,7 +4,15 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import axios from "axios";
 const HomeCoverSection = () => {
-  const [blogs, setBlogs] = useState([]);
+  const [blogs, setBlogs] = useState([{
+      _id: "1",
+      title: "The Future of Technology: Trends to Watch in 2025",
+      description:
+        "Technology in 2025 is evolving faster than ever, shaping industries, economies, and our daily lives in ways that were once unimaginable. ",
+      category: "Technology",
+      image: "/tech1.jpg",
+      date: new Date().toISOString(),
+    }]);
   const fetchBlogs = async () => {
     const response = await axios.get("http://localhost:3000/api/blog");
     setBlogs(response.data.blogs);

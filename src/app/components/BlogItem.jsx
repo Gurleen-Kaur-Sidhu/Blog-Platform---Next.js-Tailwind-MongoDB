@@ -41,7 +41,7 @@ const BlogItem = () => {
       description:
         "The way you start your morning sets the tone for the rest of your day.",
       category: "Lifestyle",
-      image: "/life.jpg",
+      image: "/life1.jpg",
       date: new Date().toISOString(),
     },
     {
