@@ -213,7 +213,55 @@ const Page = ({ params }) => {
   const id = params.id; // ✅ direct access, no `use(params)`
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [blogs, setBlogs] = useState(blog_data);
+  const [blogs, setBlogs] = useState([
+    {
+     _id: "1",
+      title: "Mindfulness in the Digital Age: Finding Calm in a Busy World",
+      description:
+        "In our fast-paced, always-connected world, finding moments of stillness has become more important than ever.",
+      category: "Wellness",
+      image: "/well1.webp",
+      date: new Date().toISOString(),
+    },
+    {
+      
+      _id: "2",
+      title: "The Future of Technology: Trends to Watch in 2025",
+      description:
+        "Technology in 2025 is evolving faster than ever, shaping industries, economies, and our daily lives in ways that were once unimaginable. ",
+      category: "Technology",
+      image: "/tech1.jpg",
+      date: new Date().toISOString(),
+    },
+    {
+      _id: "3",
+      title: "10 Daily Habits for a Healthier, Happier You",
+      description:
+        "Wellness isn’t built in a day — it’s the result of small, consistent actions that add up over time.",
+      category: "Wellness",
+      image: "/well2.jpg",
+      date: new Date().toISOString(),
+    },
+    {
+      _id: "4",
+      title: "Designing a Morning Routine That Sets You Up for Success",
+      description:
+        "The way you start your morning sets the tone for the rest of your day.",
+      category: "Lifestyle",
+      image: "/life1.jpg",
+      date: new Date().toISOString(),
+    },
+    {
+      _id: "5",
+      title:
+        "Minimalism in Everyday Life: Living with Less, Living with Purpose",
+      description:
+        "Minimalism is more than just decluttering — it’s a lifestyle that focuses on intentional living and prioritizing what truly matters.",
+      category: "Lifestyle",
+      image: "/mini1.jpg",
+      date: new Date().toISOString(),
+    },
+  ]);
   const [menu, setMenu] = useState("All");
 
   const fetchBlogs = async () => {
