@@ -5,6 +5,7 @@ import { blog_data } from "../../../assets/assets";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import HomeCoverSection from "../components/HomeCoverSection";
 const AllBlog = () => {
   const [menu, setmenu] = useState("All");
    const [blogs, setBlogs] = useState([
@@ -68,6 +69,7 @@ const AllBlog = () => {
   }, []);
   return (
     <div className="bg-gray-100">
+      <HomeCoverSection></HomeCoverSection>
       <div className="flex justify-between gap-10 lg:mx-10 mx-5 lg:py-12 py-6">
         <div>
           <h1 className="lg:text-5xl text-3xl font-bold mb-2">Read your Favourites!!</h1>
