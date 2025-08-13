@@ -303,7 +303,7 @@ const Page = ({ params }) => {
     fetchBlogs();
   }, [id]);
 
-  if (!data) return <p className="p-10">Blog not found.</p>;
+  if (!data) return <p className="p-10" style={{padding:"500px"}}></p>;
 
   return (
     <div className="w-full inline-block">

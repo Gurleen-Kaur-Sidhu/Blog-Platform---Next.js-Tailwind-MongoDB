@@ -27,13 +27,13 @@ const Header = () => {
           <Link href="/" className="mx-3">
             Home
           </Link>
-          <Link href="/About" className="mx-2">
-            About
+          <Link href="/AllBlog" className="mx-2">
+            All Blogs
           </Link>
-          <Link href="/" className="mx-3">
+          {/* <Link href="/" className="mx-3">
             Contact
-          </Link>
-          <button>
+          </Link> */}
+          <button className="ml-5">
             <Image
               src="/moon.png"
               width={22}
