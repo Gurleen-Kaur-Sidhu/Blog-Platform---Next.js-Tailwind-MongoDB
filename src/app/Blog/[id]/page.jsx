@@ -199,9 +199,6 @@
 
 // export default page;
 
-
-
-
 "use client";
 
 import { use, useState, useEffect } from "react";
@@ -213,6 +210,7 @@ import axios from "axios";
 const Page = ({ params }) => {
   const { id } = use(params); // ✅ unwrap Promise params
   const [data, setData] = useState(null);
+  const [loading, setLoading] = useState(true); // ✅ new loading state
   const [blogs, setBlogs] = useState([
     {
       _id: "1",
@@ -222,7 +220,8 @@ const Page = ({ params }) => {
       category: "Wellness",
       image: "/well1.webp",
       date: new Date().toISOString(),
-      article: "In today’s always-on world, the word wellness gets tossed around a lot. It shows up in fitness routines, skincare ads, mental health apps, and diet trends. But at its core, wellness is about one simple goal: feeling good—physically, mentally, and emotionally. It’s not about perfection. It’s not about the latest fads. It’s about finding what helps you thrive. 🌱 What Is Wellness, Really? Wellness is the active process of becoming aware of and making choices toward a healthy and fulfilling life. It’s multidimensional, often broken down into several key areas: Physical: Exercise, nutrition, sleep, and medical care Mental: Mindfulness, stress management, self-talk Emotional: Emotional intelligence, boundaries, self-compassion Social: Healthy relationships, community, support systems Spiritual: Purpose, values, inner peace—religious or not Occupational: Meaningful work and work-life balance Each area affects the others, and true wellness means paying attention to all of them—without burning out trying to optimize everything. 🧘‍♀️ Small Habits, Big Impact You don’t need to overhaul your life to improve your wellness. In fact, the most sustainable changes come from small, consistent shifts: Start your day with five minutes of deep breathing or meditation. Trade one soda a day for water or herbal tea. Take a 15-minute walk in nature without your phone. Journal before bed to process thoughts and reduce anxiety. Say “no” to things that drain you, and “yes” to what restores you. Wellness begins when you listen to your body and mind—and honor what they’re telling you. 💡 The Rise of Mindful Living In a culture that glorifies hustle and productivity, more people are reclaiming their peace through mindfulness and self-care. This shift is showing up in: Digital detoxes: Unplugging to reduce mental clutter Holistic health practices: Acupuncture, breathwork, and natural remedies Therapy & coaching: Prioritizing mental health as much as physical health Rituals over routines: Turning everyday moments into intentional acts of care Mindful living doesn’t mean you have to live like a monk—it means being present and choosing what aligns with your values. 🌼 Self-Care Isn’t Selfish Taking care of yourself doesn’t make you weak. It makes you resilient. When you nourish yourself—body, mind, and soul—you show up more fully for your work, your relationships, and your passions. So whether it’s spending a quiet morning with a book, investing in therapy, or simply getting 8 hours of sleep, know this: rest is productive. Joy is essential. And you are worth the care. 🌈 Final Thoughts: Your Wellness, Your Way Wellness isn’t a one-size-fits-all journey. It’s deeply personal. It changes with your seasons, your struggles, and your growth. Some days it looks like green juice and pilates. Other days, it’s crying on the couch with your favorite movie and a bowl of popcorn. Both count. The goal isn’t to do wellness perfectly. It’s to do it intentionally. So slow down. Breathe deep. Tune in. Your well-being is calling—and it’s time to answer."
+      article:
+        "In today’s always-on world, the word wellness gets tossed around a lot. It shows up in fitness routines, skincare ads, mental health apps, and diet trends. But at its core, wellness is about one simple goal: feeling good—physically, mentally, and emotionally. It’s not about perfection. It’s not about the latest fads. It’s about finding what helps you thrive. 🌱 What Is Wellness, Really? Wellness is the active process of becoming aware of and making choices toward a healthy and fulfilling life. It’s multidimensional, often broken down into several key areas: Physical: Exercise, nutrition, sleep, and medical care Mental: Mindfulness, stress management, self-talk Emotional: Emotional intelligence, boundaries, self-compassion Social: Healthy relationships, community, support systems Spiritual: Purpose, values, inner peace—religious or not Occupational: Meaningful work and work-life balance Each area affects the others, and true wellness means paying attention to all of them—without burning out trying to optimize everything. 🧘‍♀️ Small Habits, Big Impact You don’t need to overhaul your life to improve your wellness. In fact, the most sustainable changes come from small, consistent shifts: Start your day with five minutes of deep breathing or meditation. Trade one soda a day for water or herbal tea. Take a 15-minute walk in nature without your phone. Journal before bed to process thoughts and reduce anxiety. Say “no” to things that drain you, and “yes” to what restores you. Wellness begins when you listen to your body and mind—and honor what they’re telling you. 💡 The Rise of Mindful Living In a culture that glorifies hustle and productivity, more people are reclaiming their peace through mindfulness and self-care. This shift is showing up in: Digital detoxes: Unplugging to reduce mental clutter Holistic health practices: Acupuncture, breathwork, and natural remedies Therapy & coaching: Prioritizing mental health as much as physical health Rituals over routines: Turning everyday moments into intentional acts of care Mindful living doesn’t mean you have to live like a monk—it means being present and choosing what aligns with your values. 🌼 Self-Care Isn’t Selfish Taking care of yourself doesn’t make you weak. It makes you resilient. When you nourish yourself—body, mind, and soul—you show up more fully for your work, your relationships, and your passions. So whether it’s spending a quiet morning with a book, investing in therapy, or simply getting 8 hours of sleep, know this: rest is productive. Joy is essential. And you are worth the care. 🌈 Final Thoughts: Your Wellness, Your Way Wellness isn’t a one-size-fits-all journey. It’s deeply personal. It changes with your seasons, your struggles, and your growth. Some days it looks like green juice and pilates. Other days, it’s crying on the couch with your favorite movie and a bowl of popcorn. Both count. The goal isn’t to do wellness perfectly. It’s to do it intentionally. So slow down. Breathe deep. Tune in. Your well-being is calling—and it’s time to answer.",
     },
     {
       _id: "2",
@@ -264,23 +263,6 @@ const Page = ({ params }) => {
   ]);
   const [menu, setMenu] = useState("All");
 
-  const fetchBlogData = async () => {
-    try {
-      const response = await axios.get(`/api/blog`, { params: { id } }); // ✅ relative URL
-
-      if (response.data && Object.keys(response.data).length > 0) {
-        setData(response.data);
-      } else {
-        const fallback = blogs.find((b) => String(b._id) === String(id)); // ✅ string match
-        setData(fallback || null);
-      }
-    } catch (error) {
-      console.error("Error fetching blog, using static data:", error);
-      const fallback = blogs.find((b) => String(b._id) === String(id)); // ✅ string match
-      setData(fallback || null);
-    }
-  };
-
   const fetchBlogs = async () => {
     try {
       const response = await axios.get(`/api/blog`); // ✅ relative URL
@@ -302,6 +284,31 @@ const Page = ({ params }) => {
 
   if (!data) return <p className="p-10">Blog not found.</p>;
 
+  const fetchBlogData = async () => {
+    try {
+      setLoading(true);
+      const response = await axios.get(`/api/blog`, { params: { id } });
+
+      if (response.data && Object.keys(response.data).length > 0) {
+        setData(response.data);
+      } else {
+        const fallback = blogs.find((b) => String(b._id) === String(id));
+        setData(fallback || null);
+      }
+    } catch (error) {
+      console.error("Error fetching blog, using static data:", error);
+      const fallback = blogs.find((b) => String(b._id) === String(id));
+      setData(fallback || null);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchBlogData();
+    fetchBlogs();
+  }, [id]);
+
   return (
     <div className="w-full inline-block">
       {/* Featured Image + Title */}
@@ -317,7 +324,9 @@ const Page = ({ params }) => {
             <button className="border border-light rounded-full bg-dark text-white px-4 py-2 font-bold text-sm">
               {data.category}
             </button>
-            <h1 className="lg:text-4xl text-xl text-white mt-4">{data.title}</h1>
+            <h1 className="lg:text-4xl text-xl text-white mt-4">
+              {data.title}
+            </h1>
             <p className="text-lg font-light text-white mt-2">
               {data.description}
             </p>
@@ -360,7 +369,11 @@ const Page = ({ params }) => {
                   <div className="flex items-start gap-4 mb-4">
                     <div className="w-[104px] h-[84px] relative rounded-lg overflow-hidden">
                       <Image
-                        src={blog.image.startsWith("/") ? blog.image : `/${blog.image}`}
+                        src={
+                          blog.image.startsWith("/")
+                            ? blog.image
+                            : `/${blog.image}`
+                        }
                         alt={blog.title}
                         fill
                         style={{ objectFit: "cover" }}
@@ -389,4 +402,3 @@ const Page = ({ params }) => {
 };
 
 export default Page;
-
