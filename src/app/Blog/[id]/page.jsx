@@ -263,25 +263,44 @@ const Page = ({ params }) => {
   const [menu, setmenu] = useState("All");
 
   // Try fetching from API, fallback to static data if it fails
-  const fetchBlogData = async () => {
-    try {
-      const response = await axios.get("http://localhost:3000/api/blog", {
-        params: { id },
-      });
+  // const fetchBlogData = async () => {
+  //   try {
+  //     const response = await axios.get("http://localhost:3000/api/blog", {
+  //       params: { id },
+  //     });
 
-      if (response.data && Object.keys(response.data).length > 0) {
-        setData(response.data);
-      } else {
-        // Mongo returned nothing → fallback
-        const fallback = blog_data.find((b) => b._id === id);
-        setData(fallback || null);
-      }
-    } catch (error) {
-      console.error("Error fetching blog, using static data:", error);
-      const fallback = blog_data.find((b) => b._id === id);
+  //     if (response.data && Object.keys(response.data).length > 0) {
+  //       setData(response.data);
+  //     } else {
+  //       // Mongo returned nothing → fallback
+  //       const fallback = blog_data.find((b) => b._id === id);
+  //       setData(fallback || null);
+  //     }
+  //   } catch (error) {
+  //     console.error("Error fetching blog, using static data:", error);
+  //     const fallback = blog_data.find((b) => b._id === id);
+  //     setData(fallback || null);
+  //   }
+  // };
+
+  const fetchBlogData = async () => {
+  try {
+    const response = await axios.get(`http://localhost:3000/api/blog`, { params: { id } });
+
+    if (response.data && Object.keys(response.data).length > 0) {
+      setData(response.data);
+    } else {
+      // fallback to static state
+      const fallback = blogs.find((b) => String(b._id) === String(id));
       setData(fallback || null);
     }
-  };
+  } catch (error) {
+    console.error("Error fetching blog, using static data:", error);
+    const fallback = blogs.find((b) => String(b._id) === String(id));
+    setData(fallback || null);
+  }
+};
+
 
   // Load latest blogs (also with fallback)
   const fetchBlogs = async () => {
