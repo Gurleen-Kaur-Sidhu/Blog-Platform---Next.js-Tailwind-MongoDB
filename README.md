@@ -24,3 +24,6 @@ Frontend: Next.js, Tailwind CSS
 Backend: Next.js API Routes
 
 Database: MongoDB with Mongoose
+
+# Dashboard Design for Admin to upload Blog (used TipTap for Article Typing)
+<img src="public/dash.png" alt="Home Page" width="400">
